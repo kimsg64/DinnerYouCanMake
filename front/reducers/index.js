@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
       case HYDRATE:
         return { ...state, ...action.payload };
       default:
-        console.log("default", action);
+        // console.log("default", action);
         return state;
     }
   },

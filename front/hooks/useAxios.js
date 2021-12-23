@@ -1,25 +1,27 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FAILED_SEARCHING, SUCCESS_SEARCHING } from "../reducers/search";
+import { FAILED_TO_SEARCH, SUCCEED_IN_SEARCHING } from "../reducers/search";
 
 const useAxios = () => {
   const dispatch = useDispatch();
   const { keyword } = useSelector((state) => state.search);
   const [data, setData] = useState(null);
+  const { sequence } = useSelector((state) => state.detail);
+  const [selectedData, setSelectedData] = useState(null);
 
   const fetchData = useCallback(() => {
     // console.log("useAxios");
     const keywordWithoutSpace = keyword.split(" ").join("");
     const key = process.env.NEXT_PUBLIC_API_KEY;
-    console.log(key);
+    // console.log(key);
     const URL = `http://openapi.foodsafetykorea.go.kr/api/${key}/COOKRCP01/json/1/1000/RCP_NM=${keywordWithoutSpace}&RCP_PARTS_DTLS=${keywordWithoutSpace}`;
 
     axios
       .get(URL)
       .then((response) => {
-        dispatch({ type: SUCCESS_SEARCHING });
-        console.log(response.data);
+        dispatch({ type: SUCCEED_IN_SEARCHING });
+        // console.log(response.data);
         if (response.data.COOKRCP01.RESULT.CODE === "INFO-000") {
           setData(response.data.COOKRCP01.row);
         } else if (response.data.COOKRCP01.RESULT.CODE === "INFO-200") {
@@ -27,8 +29,8 @@ const useAxios = () => {
         }
       })
       .catch((error) => {
-        dispatch({ type: FAILED_SEARCHING });
-        console.log("error", error);
+        dispatch({ type: FAILED_TO_SEARCH });
+        // console.log("error", error);
       });
   }, [keyword]);
 
@@ -37,7 +39,14 @@ const useAxios = () => {
     fetchData();
   }, [keyword]);
 
-  return { data, fetchData };
+  useEffect(() => {
+    // console.log(data);
+    if (data === null) return;
+    if (sequence === "") return;
+    setSelectedData(data.filter((cuisine) => cuisine.RCP_SEQ === sequence)[0]);
+  }, [data, sequence]);
+
+  return { data, fetchData, selectedData };
 };
 
 export default useAxios;

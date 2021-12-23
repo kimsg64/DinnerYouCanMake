@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { REQUEST_TO_SELECT_POST } from "../../reducers/detail";
+
 import {
   HashTagWrapper,
   ThumbnailSection,
@@ -11,10 +13,14 @@ import {
   TitleWrapper,
 } from "./styles";
 
+// const PostLink = (cuisine) => {
+//   <Link href={`/detail?no=${cuisine.RCP_SEQ}`}></Link>;
+// };
+
 const SearchResult = ({ data = null }) => {
   const { keyword } = useSelector((state) => state.search);
   const { isDisplayed } = useSelector((state) => state.nav);
-  console.log(data);
+  // console.log(data);
 
   return (
     <ResultWrapper isDisplayed={isDisplayed}>
@@ -24,11 +30,8 @@ const SearchResult = ({ data = null }) => {
         data.map((cuisine) => {
           return (
             <Link
-              href={{
-                pathname: `/detail/`,
-                query: { currentName: JSON.stringify(cuisine) },
-              }}
-              as={`/detail/`}
+              href="/detail/[seq]"
+              as={`/detail/${cuisine.RCP_SEQ}`}
               key={cuisine.RCP_SEQ + cuisine.RCP_NM}
             >
               <a>

@@ -7,12 +7,12 @@ export const initialState = {
 };
 
 export const REQUEST_SEARCHING = "REQUEST_SEARCHING";
-export const SUCCESS_SEARCHING = "SUCCESS_SEARCHING";
-export const FAILED_SEARCHING = "FAILED_SEARCHING";
+export const SUCCEED_IN_SEARCHING = "SUCCEED_IN_SEARCHING";
+export const FAILED_TO_SEARCH = "FAILED_TO_SEARCH";
 
 export const REQUEST_BACK = "REQUEST_BACK";
-export const SUCCESS_BACK = "SUCCESS_BACK";
-export const FAILURE_BACK = "FAILURE_BACK";
+export const SUCCEED_IN_BACK = "SUCCEED_IN_BACK";
+export const FAILED_TO_BACK = "FAILED_TO_BACK";
 
 export const RESET_KEYWORD = "RESET_KEYWORD";
 
@@ -31,14 +31,14 @@ const reducer = (state = initialState, action) => {
         searchingError: null,
       };
     }
-    case SUCCESS_SEARCHING: {
+    case SUCCEED_IN_SEARCHING: {
       return {
         ...state,
         isSearching: false,
         isSearched: true,
       };
     }
-    case FAILED_SEARCHING: {
+    case FAILED_TO_SEARCH: {
       return {
         ...state,
         isSearching: false,
@@ -53,14 +53,14 @@ const reducer = (state = initialState, action) => {
         isSearched: false,
       };
     }
-    case SUCCESS_BACK: {
+    case SUCCEED_IN_BACK: {
       return {
         ...state,
         isSearching: false,
         isSearched: true,
       };
     }
-    case FAILURE_BACK: {
+    case FAILED_TO_BACK: {
       return {
         ...state,
         isSearching: false,
