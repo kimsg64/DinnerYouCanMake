@@ -12,7 +12,11 @@ const RecommnendDinner = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <meta charSet="utf-8" />
+        <meta
+          charSet="utf-8"
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
         <title>저녁 뭐 먹지</title>
       </Head>
       <Component {...pageProps} />

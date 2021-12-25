@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { REQUEST_TO_SELECT_POST } from "../../reducers/detail";
+import { useSelector } from "react-redux";
 
 import {
   HashTagWrapper,
@@ -12,10 +11,6 @@ import {
   ResultWrapper,
   TitleWrapper,
 } from "./styles";
-
-// const PostLink = (cuisine) => {
-//   <Link href={`/detail?no=${cuisine.RCP_SEQ}`}></Link>;
-// };
 
 const SearchResult = ({ data = null }) => {
   const { keyword } = useSelector((state) => state.search);
