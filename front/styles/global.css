@@ -11,6 +11,10 @@ body {
   user-select: none;
 }
 
+input {
+  user-select: auto;
+}
+
 a {
   text-decoration: none;
   color: inherit;

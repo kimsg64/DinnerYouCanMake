@@ -1,6 +1,6 @@
 export const initialState = {
   isShowingDetail: false,
-  sequence: "",
+  selectedSequence: "",
 };
 
 export const ENTER_DETAIL_PAGE = "ENTER_DETAIL_PAGE";
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
     case REQUEST_TO_SELECT_POST: {
       return {
         ...state,
-        sequence: action.data,
+        selectedSequence: action.data,
       };
     }
     default: {

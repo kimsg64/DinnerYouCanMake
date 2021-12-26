@@ -7,7 +7,7 @@ const useAxios = () => {
   const dispatch = useDispatch();
   const { keyword } = useSelector((state) => state.search);
   const [data, setData] = useState(null);
-  const { sequence } = useSelector((state) => state.detail);
+  const { selectedSequence } = useSelector((state) => state.detail);
   const [selectedData, setSelectedData] = useState(null);
 
   const fetchData = useCallback(() => {
@@ -42,9 +42,11 @@ const useAxios = () => {
   useEffect(() => {
     // console.log(data);
     if (data === null) return;
-    if (sequence === "") return;
-    setSelectedData(data.filter((cuisine) => cuisine.RCP_SEQ === sequence)[0]);
-  }, [data, sequence]);
+    if (selectedSequence === "") return;
+    setSelectedData(
+      data.filter((cuisine) => cuisine.RCP_SEQ === selectedSequence)[0]
+    );
+  }, [data, selectedSequence]);
 
   return { data, fetchData, selectedData };
 };
